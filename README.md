@@ -1,88 +1,170 @@
-# Currency Converter (React)
+# 💱 Currency Converter (React)
 
-Simple React currency converter with live rates and offline defaults.
+Simple, fast currency converter with live rates, elegant UI, and offline defaults.
 
-## Overview
+<p align="left">
+  <a href="https://react.dev" target="_blank">
+    <img alt="React" src="https://img.shields.io/badge/React-18+-61DAFB?logo=react&logoColor=white" />
+  </a>
+  <a href="https://tailwindcss.com" target="_blank">
+    <img alt="Tailwind" src="https://img.shields.io/badge/TailwindCSS-3+-38B2AC?logo=tailwindcss&logoColor=white" />
+  </a>
+  <img alt="Node" src="https://img.shields.io/badge/Node-%E2%89%A514-339933?logo=node.js&logoColor=white" />
+  <a href="#license--credits">
+    <img alt="License" src="https://img.shields.io/badge/License-MIT-000000.svg?logo=open-source-initiative&logoColor=white" />
+  </a>
+  <a href="#contributing">
+    <img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?logo=github" />
+  </a>
+  <!-- Replace with your repo slug to enable build status -->
+  <!-- <a href="https://github.com/your-username/your-repo/actions">
+    <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/your-username/your-repo/ci.yml?label=build&logo=github" />
+  </a> -->
+  <!-- Replace with your live URL -->
+  <!-- <a href="https://your-live-demo-url.example.com">
+    <img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-Visit-10B981?logo=netlify&logoColor=white" />
+  </a> -->
+</p>
 
-This app converts between currencies using a public API (exchangerate.host) with a fallback to frankfurter.app. If live fetch fails the app uses built-in default rates so conversion still works. Features include:
+<img src="https://fav.farm/💱" alt="App icon" height="22" /> Overview
 
-- Live rate fetching with timeout and fallback
-- Manual "Refresh Rates" control
-- Swap currencies
-- Type either "From" or "To" amount and derive the counterpart
-- Friendly error banner when online rates cannot be fetched
+This app converts between currencies using a public API (exchangerate.host) with a fallback to frankfurter.app. If live fetch fails, the app uses built‑in default rates so conversion still works.
 
-## Prerequisites
+- ⚡ Live rate fetching with timeout and fallback
+- 🔄 Manual “Refresh Rates” control
+- 🔁 One‑tap swap between From/To
+- ⌨️ Type in either box; the other updates instantly
+- 🧯 Graceful offline/failed fetch handling with banner
+- 🎨 Modern, accessible UI
 
-- Node.js (14+ recommended)
+## ✨ Features
+
+- Live rates with intelligent fallback
+- Inline conversion while typing (both directions)
+- Swap currencies and values
+- Quick pairs (configurable)
+- Status indicators: last updated, loading spinner
+- Keyboard/focus friendly
+- Works with Create React App or Vite
+
+## 🧩 Tech stack
+
+- React + Hooks
+- Tailwind CSS utility classes
+- Fetch with timeouts and graceful error handling
+- No backend required
+
+## 📦 Prerequisites
+
+- Node.js 14+ recommended
 - npm or yarn
 
-## Install
-
-1. Clone or copy the repository to your machine.
-2. From project root:
+## 🚀 Install
 
 ```bash
 npm install
 # or
 yarn
-```
 
-## Run (development)
+Copy
 
-- If using Create React App:
+Insert
 
-```bash
+🧑‍💻 Run (development)
+Create React App:
 npm start
 # or
 yarn start
-```
 
-- If using Vite:
+Copy
 
-```bash
+Insert
+
+Vite:
 npm run dev
 # or
 yarn dev
-```
 
-## Build
+Copy
 
-```bash
+Insert
+
+🏗️ Build
 npm run build
 # or
 yarn build
-```
 
-## Usage
+Copy
 
-- Enter an amount in the "From" field and pick currencies from the dropdowns.
-- Click "Convert" to compute or type in the "To" box to update the "From" value automatically.
-- Use "⇄ Swap" to swap from/to currencies and values.
-- Click "Refresh Rates" to force a re-fetch of live rates.
+Insert
 
-## Implementation notes
+🖱️ Usage
+Enter an amount in the “From” field and pick currencies.
+Click “Convert” to compute, or type in the “To” field to update “From.”
+Click “Swap” to switch currencies and values.
+Click “Refresh” to force re-fetch of live rates.
+🔧 Implementation notes
+Hook: src/hooks/useCurrencyInfo.js
+Returns { rates, loading, error, refresh }.
+rates keys are lowercase currency codes.
+refresh() triggers a re-fetch.
+On network failure, falls back to built-in DEFAULT_RATES.
+UI components: src/components/… (input/select controls and layout).
+🩺 Troubleshooting
+If network times out, the banner appears and offline defaults are used. Ensure your environment allows outbound requests to:
+https://api.exchangerate.host
+https://api.frankfurter.app
+To modify default offline rates, edit DEFAULT_RATES in src/hooks/useCurrencyInfo.js.
+If selects are empty, verify network; the app also initializes with defaults so selects should populate.
+🌐 APIs used
+exchangerate.host — primary source
+frankfurter.app — fallback source
+📸 Screenshots
+⚙️ Configuration
+No environment variables required by default. You can:
 
-- Hook: `src/hooks/useCurrencyInfo.js`
-  - Returns `{ rates, loading, error, refresh }`.
-  - `rates` keys are lowercase currency codes.
-  - `refresh()` triggers a re-fetch.
-  - When network fetch fails the hook falls back to built-in `DEFAULT_RATES`.
-- The UI component `src/components/inputBox.jsx` allows typing in both inputs and selecting currency types.
+Update quick pairs in the App component.
+Tweak the UI in App.css (glassmorphism, gradients, focus, motion-reduction supported).
+☁️ Deployment
+Netlify: drag-and-drop the build folder or connect your repo; set build command npm run build and publish directory build or dist (Vite).
+Vercel: import repo; framework detection picks CRA/Vite automatically.
+GitHub Pages (CRA): npm run build then deploy build with gh-pages.
+⌨️ Shortcuts and a11y
+Tab/Shift+Tab to navigate inputs and buttons.
+Clear focus rings and larger hit targets for controls.
+Reduced motion respected via prefers-reduced-motion.
+🧭 Project structure (excerpt)
+src/
+  components/
+    # UI components (InputBox, etc.)
+  hooks/
+    useCurrencyInfo.js   # rates, loading, error, refresh
+  App.css
+  App.jsx
 
-## Troubleshooting
+Copy
 
-- If you see network timeout errors (ERR_CONNECTION_TIMED_OUT) the app will show a banner and use built-in rates. Ensure your environment allows outbound requests to the public APIs.
-- To modify default offline rates, edit `DEFAULT_RATES` in `src/hooks/useCurrencyInfo.js`.
-- If selects are empty, verify network and that the hook returned `rates`; the app also initializes with defaults so selects should populate immediately.
+Insert
 
-## License & Credits
+🤝 Contributing
+Fork + branch from main
+Commit with conventional messages if possible (feat:, fix:, docs:)
+Open a PR — PRs welcome!
+Quick ideas:
 
-MIT-style — adapt as needed. APIs used:
+Add more quick pairs or favorites
+Persist last-used currencies in localStorage
+Add unit tests for the hook
+Add i18n and number formatting locales
+📝 License & Credits
+MIT-style — adapt as needed.
 
-- https://api.exchangerate.host
-- https://api.frankfurter.app
+APIs:
 
-## Contact
+https://api.exchangerate.host
+https://api.frankfurter.app
+Icons/Badges:
 
-For issues or improvements, open an issue or submit a PR in your repository.
+Shields.io badges
+fav.farm emoji icons
+Made with React and care.
