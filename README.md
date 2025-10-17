@@ -38,6 +38,8 @@ This app converts between currencies using a public API (exchangerate.host) with
 - 🧯 Graceful offline/failed fetch handling with banner
 - 🎨 Modern, accessible UI
 
+## 📸 Screenshots
+
 ## ✨ Features
 
 - Live rates with intelligent fallback
