@@ -26,6 +26,7 @@ Simple, fast currency converter with live rates, elegant UI, and offline default
   </a> -->
 </p>
 
+
 <img src="https://fav.farm/💱" alt="App icon" height="22" /> Overview
 
 This app converts between currencies using a public API (exchangerate.host) with a fallback to frankfurter.app. If live fetch fails, the app uses built‑in default rates so conversion still works.
