@@ -1,0 +1,257 @@
+/* -------------------------------------------------------------------
+   Currency Converter – Enhanced UI (no JSX changes required)
+   - Glassmorphism card with animated gradient glow
+   - Better buttons, inputs, and focus states
+   - Subtle background overlays
+   - Respect reduced motion
+-------------------------------------------------------------------- */
+
+/* Typography and base */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --app-bg: radial-gradient(80rem 60rem at 50% -20%, rgba(99, 102, 241, 0.15), transparent 55%),
+            radial-gradient(60rem 50rem at 90% 0%, rgba(16, 185, 129, 0.15), transparent 50%),
+            radial-gradient(60rem 50rem at 10% 0%, rgba(59, 130, 246, 0.15), transparent 50%);
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-border: rgba(255, 255, 255, 0.55);
+  --text: #0f172a;
+  --muted: #64748b;
+  --ring: rgba(59, 130, 246, 0.35);
+  --success: #10b981;
+  --warning: #f59e0b;
+  --warning-bg: #fef3c7;
+  --warning-border: #fde68a;
+  --shadow-lg: 0 10px 30px rgba(2, 6, 23, 0.18);
+  --shadow-md: 0 6px 18px rgba(2, 6, 23, 0.12);
+  --shadow-soft: 0 2px 8px rgba(2, 6, 23, 0.1);
+}
+
+html, body, #root {
+  min-height: 100%;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji;
+  color: var(--text);
+}
+
+/* Subtle animated background overlay behind your page background image */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--app-bg);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatGradient 18s ease-in-out infinite alternate;
+  opacity: 0.9;
+}
+
+@keyframes floatGradient {
+  0% { filter: saturate(100%) hue-rotate(0deg); transform: translateY(0px); }
+  100% { filter: saturate(115%) hue-rotate(12deg); transform: translateY(-8px); }
+}
+
+/* Improve the main hero container (your full-screen section) */
+[class*="min-h-screen"][class*="bg-cover"][class*="bg-center"] {
+  position: relative;
+  isolation: isolate;
+}
+
+[class*="min-h-screen"][class*="bg-cover"][class*="bg-center"]::after {
+  /* very soft vignette */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1200px 600px at 50% 0%, rgba(255,255,255,0.12), transparent 60%),
+              radial-gradient(1200px 600px at 50% 100%, rgba(0,0,0,0.18), transparent 65%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Card: glassmorphism + animated gradient glow ring */
+.rounded-2xl.shadow-2xl {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: saturate(125%) blur(8px);
+}
+
+.rounded-2xl.shadow-2xl::before {
+  /* external animated glow */
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(from 180deg at 50% 50%, rgba(16,185,129,0.5), rgba(59,130,246,0.5), rgba(99,102,241,0.5), rgba(236,72,153,0.5), rgba(16,185,129,0.5));
+  filter: blur(14px);
+  opacity: 0.35;
+  z-index: -1;
+  transform: translateZ(0);
+  animation: spinSlow 24s linear infinite;
+}
+
+.rounded-2xl.shadow-2xl::after {
+  /* inner hairline */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), inset 0 1px 10px rgba(2, 6, 23, 0.04);
+  pointer-events: none;
+}
+
+@keyframes spinSlow {
+  to { transform: rotate(1turn); }
+}
+
+/* Heading: gradient text and subtle shadow */
+h1.text-3xl, h1.text-4xl {
+  background: linear-gradient(90deg, #0f172a, #334155 35%, #0f172a 65%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+}
+
+/* Muted text improvements */
+.text-gray-600, .text-gray-500 {
+  color: var(--muted) !important;
+}
+
+/* Buttons: shared interactions */
+button {
+  transition: transform 0.18s ease, box-shadow 0.28s ease, filter 0.28s ease, background-position 0.28s ease;
+  will-change: transform;
+}
+
+button:not([disabled]):hover {
+  transform: translateY(-1px);
+}
+
+button:not([disabled]):active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* Swap (rounded-full + shadow-md) — give it a nice lift and gloss */
+button.rounded-full.shadow-md {
+  box-shadow: 0 8px 18px rgba(59, 130, 246, 0.28), 0 3px 6px rgba(30, 64, 175, 0.18);
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.12), rgba(255,255,255,0));
+  background-blend-mode: overlay;
+}
+
+/* Refresh button (neutral) — more tactile */
+button.bg-gray-200, button[class*="bg-gray-200"] {
+  border: 1px solid rgba(2, 6, 23, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+button.bg-gray-200:not([disabled]):hover, button[class*="bg-gray-200"]:not([disabled]):hover {
+  filter: brightness(1.02);
+  box-shadow: 0 8px 22px rgba(2, 6, 23, 0.12);
+}
+
+/* Primary conversion CTA (green gradient) — glow subtly */
+button[class*="from-green-"][class*="to-emerald-"] {
+  box-shadow:
+    0 16px 40px -18px rgba(16, 185, 129, 0.55),
+    0 8px 18px -10px rgba(16, 185, 129, 0.45),
+    inset 0 1px 0 rgba(255,255,255,0.25);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+}
+
+button[class*="from-green-"][class*="to-emerald-"]:hover:not([disabled]) {
+  background-position: 100% 50%;
+}
+
+/* Disabled state clarity */
+button[disabled] {
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+  filter: grayscale(10%);
+}
+
+/* Inputs and selects: soft surfaces + improved focus */
+input, select, textarea {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 0.75rem;
+  box-shadow: inset 0 1px 1px rgba(2, 6, 23, 0.04), 0 1px 2px rgba(2, 6, 23, 0.04);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+input:hover, select:hover, textarea:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 0 4px var(--ring), 0 1px 3px rgba(2, 6, 23, 0.06);
+}
+
+/* Numbers look better with tabular-nums */
+* {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Error/Warning alert styling */
+[class*="bg-yellow-100"] {
+  position: relative;
+  border-left: 4px solid var(--warning);
+  background: linear-gradient(180deg, var(--warning-bg), #fffbe8);
+  border: 1px solid var(--warning-border);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.18);
+}
+
+/* Rate info badge feel */
+.text-center .text-sm span, .text-right .text-xs span, .text-right .text-sm span {
+  border-radius: 999px;
+  padding: 0.4rem 0.7rem;
+  background: rgba(241, 245, 249, 0.8);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 1px 2px rgba(2, 6, 23, 0.06);
+}
+
+/* Footer soft look (if present) */
+.text-white\/80 {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+/* Nice scrollbars (WebKit) */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(100, 116, 139, 0.55), rgba(71, 85, 105, 0.7));
+  border-radius: 999px;
+  border: 2px solid rgba(0,0,0,0);
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.6);
+  border-radius: 999px;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  body::before {
+    opacity: 0.6;
+  }
+}
