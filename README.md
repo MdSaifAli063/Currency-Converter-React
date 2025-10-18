@@ -78,9 +78,6 @@ npm start
 # or
 yarn start
 
-Copy
-
-Insert
 
 Vite:
 npm run dev
