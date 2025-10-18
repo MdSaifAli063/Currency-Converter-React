@@ -135,10 +135,6 @@ src/
   App.css
   App.jsx
 
-Copy
-
-Insert
-
 🤝 Contributing
 Fork + branch from main
 Commit with conventional messages if possible (feat:, fix:, docs:)
