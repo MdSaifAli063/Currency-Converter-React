@@ -71,9 +71,6 @@ npm install
 # or
 yarn
 
-Copy
-
-Insert
 
 🧑‍💻 Run (development)
 Create React App:
