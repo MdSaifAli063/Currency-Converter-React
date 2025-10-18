@@ -90,9 +90,6 @@ npm run build
 # or
 yarn build
 
-Copy
-
-Insert
 
 🖱️ Usage
 Enter an amount in the “From” field and pick currencies.
