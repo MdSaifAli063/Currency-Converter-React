@@ -84,9 +84,6 @@ npm run dev
 # or
 yarn dev
 
-Copy
-
-Insert
 
 🏗️ Build
 npm run build
