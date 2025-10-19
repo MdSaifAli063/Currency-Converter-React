@@ -145,14 +145,15 @@ No environment variables required by default. You can:
 ## 🧭 Project structure (excerpt)
 
 src/
- - components/
+  components/
     # UI components (InputBox, etc.)
-  - hooks/
+    hooks/
     useCurrencyInfo.js   # rates, loading, error, refresh
-- App.css
-- App.jsx
+ App.css
+ App.jsx
 
-🤝 Contributing
+## 🤝 Contributing
+
 Fork + branch from main
 Commit with conventional messages if possible (feat:, fix:, docs:)
 Open a PR — PRs welcome!
