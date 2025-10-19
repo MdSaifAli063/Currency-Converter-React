@@ -72,18 +72,21 @@ npm install
 yarn
 ```
 
-🧑‍💻 Run (development)
+### 🧑‍💻 Run (development)
+
 Create React App:
+```
 npm start
 # or
 yarn start
-
+```
 
 Vite:
+```
 npm run dev
 # or
 yarn dev
-
+```
 
 🏗️ Build
 npm run build
