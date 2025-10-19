@@ -95,11 +95,13 @@ npm run build
 yarn build
 ```
 
-🖱️ Usage
-Enter an amount in the “From” field and pick currencies.
-Click “Convert” to compute, or type in the “To” field to update “From.”
-Click “Swap” to switch currencies and values.
-Click “Refresh” to force re-fetch of live rates.
+## 🖱️ Usage
+
+- Enter an amount in the “From” field and pick currencies.
+- Click “Convert” to compute, or type in the “To” field to update “From.”
+- Click “Swap” to switch currencies and values.
+- Click “Refresh” to force re-fetch of live rates.
+
 🔧 Implementation notes
 Hook: src/hooks/useCurrencyInfo.js
 Returns { rates, loading, error, refresh }.
