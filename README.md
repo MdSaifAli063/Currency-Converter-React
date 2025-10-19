@@ -129,10 +129,13 @@ If network times out, the banner appears and offline defaults are used. Ensure y
 No environment variables required by default. You can:
 - Update quick pairs in the App component.
 - Tweak the UI in App.css (glassmorphism, gradients, focus, motion-reduction supported).
-☁️ Deployment
-Netlify: drag-and-drop the build folder or connect your repo; set build command npm run build and publish directory build or dist (Vite).
-Vercel: import repo; framework detection picks CRA/Vite automatically.
-GitHub Pages (CRA): npm run build then deploy build with gh-pages.
+  
+## ☁️ Deployment
+
+- Netlify: drag-and-drop the build folder or connect your repo; set build command npm run build and publish directory build or dist (Vite).
+- Vercel: import repo; framework detection picks CRA/Vite automatically.
+- GitHub Pages (CRA): npm run build then deploy build with gh-pages.
+  
 ⌨️ Shortcuts and a11y
 Tab/Shift+Tab to navigate inputs and buttons.
 Clear focus rings and larger hit targets for controls.
