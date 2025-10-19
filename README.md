@@ -142,14 +142,15 @@ No environment variables required by default. You can:
 - Clear focus rings and larger hit targets for controls.
 - Reduced motion respected via prefers-reduced-motion.
   
-🧭 Project structure (excerpt)
+## 🧭 Project structure (excerpt)
+
 src/
-  components/
+ - components/
     # UI components (InputBox, etc.)
-  hooks/
+  - hooks/
     useCurrencyInfo.js   # rates, loading, error, refresh
-  App.css
-  App.jsx
+- App.css
+- App.jsx
 
 🤝 Contributing
 Fork + branch from main
