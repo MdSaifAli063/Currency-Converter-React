@@ -166,15 +166,15 @@ Quick ideas:
 - Add unit tests for the hook
 - Add i18n and number formatting locales
   
-📝 License & Credits
+## 📝 License & Credits
+
 MIT-style — adapt as needed.
 
 APIs:
 
-https://api.exchangerate.host
-https://api.frankfurter.app
+- https://api.exchangerate.host
+- https://api.frankfurter.app
 Icons/Badges:
-
-Shields.io badges
-fav.farm emoji icons
+- Shields.io badges
+- fav.farm emoji icons
 Made with React and care.
