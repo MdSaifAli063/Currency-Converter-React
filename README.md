@@ -70,7 +70,7 @@ This app converts between currencies using a public API (exchangerate.host) with
 npm install
 # or
 yarn
-
+```
 
 🧑‍💻 Run (development)
 Create React App:
