@@ -88,11 +88,12 @@ npm run dev
 yarn dev
 ```
 
-🏗️ Build
+### 🏗️ Build
+```
 npm run build
 # or
 yarn build
-
+```
 
 🖱️ Usage
 Enter an amount in the “From” field and pick currencies.
