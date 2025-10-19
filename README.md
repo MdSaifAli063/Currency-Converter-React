@@ -155,15 +155,17 @@ src/
 
 ## 🤝 Contributing
 
-Fork + branch from main
-Commit with conventional messages if possible (feat:, fix:, docs:)
-Open a PR — PRs welcome!
+- Fork + branch from main
+- Commit with conventional messages if possible (feat:, fix:, docs:)
+- Open a PR — PRs welcome!
+  
 Quick ideas:
 
-Add more quick pairs or favorites
-Persist last-used currencies in localStorage
-Add unit tests for the hook
-Add i18n and number formatting locales
+- Add more quick pairs or favorites
+- Persist last-used currencies in localStorage
+- Add unit tests for the hook
+- Add i18n and number formatting locales
+  
 📝 License & Credits
 MIT-style — adapt as needed.
 
