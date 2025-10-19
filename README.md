@@ -102,13 +102,15 @@ yarn build
 - Click “Swap” to switch currencies and values.
 - Click “Refresh” to force re-fetch of live rates.
 
-🔧 Implementation notes
-Hook: src/hooks/useCurrencyInfo.js
-Returns { rates, loading, error, refresh }.
-rates keys are lowercase currency codes.
-refresh() triggers a re-fetch.
-On network failure, falls back to built-in DEFAULT_RATES.
-UI components: src/components/… (input/select controls and layout).
+## 🔧 Implementation notes
+
+- Hook: src/hooks/useCurrencyInfo.js
+- Returns { rates, loading, error, refresh }.
+- rates keys are lowercase currency codes.
+- refresh() triggers a re-fetch.
+- On network failure, falls back to built-in DEFAULT_RATES.
+- UI components: src/components/… (input/select controls and layout).
+  
 🩺 Troubleshooting
 If network times out, the banner appears and offline defaults are used. Ensure your environment allows outbound requests to:
 https://api.exchangerate.host
