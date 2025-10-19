@@ -136,10 +136,12 @@ No environment variables required by default. You can:
 - Vercel: import repo; framework detection picks CRA/Vite automatically.
 - GitHub Pages (CRA): npm run build then deploy build with gh-pages.
   
-⌨️ Shortcuts and a11y
-Tab/Shift+Tab to navigate inputs and buttons.
-Clear focus rings and larger hit targets for controls.
-Reduced motion respected via prefers-reduced-motion.
+## ⌨️ Shortcuts and a11y
+
+- Tab/Shift+Tab to navigate inputs and buttons.
+- Clear focus rings and larger hit targets for controls.
+- Reduced motion respected via prefers-reduced-motion.
+  
 🧭 Project structure (excerpt)
 src/
   components/
