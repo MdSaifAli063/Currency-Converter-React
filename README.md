@@ -143,7 +143,7 @@ No environment variables required by default. You can:
 - Reduced motion respected via prefers-reduced-motion.
   
 ## 🧭 Project structure (excerpt)
-
+```file
 src/
   components/
     # UI components (InputBox, etc.)
@@ -151,6 +151,7 @@ src/
     useCurrencyInfo.js   # rates, loading, error, refresh
  App.css
  App.jsx
+```
 
 ## 🤝 Contributing
 
