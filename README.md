@@ -111,12 +111,14 @@ yarn build
 - On network failure, falls back to built-in DEFAULT_RATES.
 - UI components: src/components/… (input/select controls and layout).
   
-🩺 Troubleshooting
+## 🩺 Troubleshooting
+
 If network times out, the banner appears and offline defaults are used. Ensure your environment allows outbound requests to:
-https://api.exchangerate.host
-https://api.frankfurter.app
-To modify default offline rates, edit DEFAULT_RATES in src/hooks/useCurrencyInfo.js.
-If selects are empty, verify network; the app also initializes with defaults so selects should populate.
+- https://api.exchangerate.host
+- https://api.frankfurter.app
+- To modify default offline rates, edit DEFAULT_RATES in src/hooks/useCurrencyInfo.js.
+-If selects are empty, verify network; the app also initializes with defaults so selects should populate.
+
 🌐 APIs used
 exchangerate.host — primary source
 frankfurter.app — fallback source
