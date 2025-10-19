@@ -119,9 +119,11 @@ If network times out, the banner appears and offline defaults are used. Ensure y
 - To modify default offline rates, edit DEFAULT_RATES in src/hooks/useCurrencyInfo.js.
 - If selects are empty, verify network; the app also initializes with defaults so selects should populate.
 
-🌐 APIs used
-exchangerate.host — primary source
-frankfurter.app — fallback source
+## 🌐 APIs used
+
+- exchangerate.host — primary source
+- frankfurter.app — fallback source
+  
 📸 Screenshots
 ⚙️ Configuration
 No environment variables required by default. You can:
