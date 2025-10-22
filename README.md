@@ -26,7 +26,8 @@ Simple, fast currency converter with live rates, elegant UI, and offline default
   </a> -->
 </p>
 
-<img src="https://fav.farm/💱" alt="App icon" height="22" /> Overview
+
+## <img src="https://fav.farm/💱" alt="App icon" height="22" /> Overview
 
 This app converts between currencies using a public API (exchangerate.host) with a fallback to frankfurter.app. If live fetch fails, the app uses built‑in default rates so conversion still works.
 
@@ -36,6 +37,10 @@ This app converts between currencies using a public API (exchangerate.host) with
 - ⌨️ Type in either box; the other updates instantly
 - 🧯 Graceful offline/failed fetch handling with banner
 - 🎨 Modern, accessible UI
+
+## 📸 Screenshots
+
+![image](https://github.com/MdSaifAli063/Currency-Converter-React/blob/e08be399185d398ad0cf5b8026b3e52e0e73c55d/Screenshot%202025-10-18%20004608_edited.png)
 
 ## ✨ Features
 
@@ -65,106 +70,114 @@ This app converts between currencies using a public API (exchangerate.host) with
 npm install
 # or
 yarn
+```
 
-Copy
+### 🧑‍💻 Run (development)
 
-Insert
-
-🧑‍💻 Run (development)
 Create React App:
+```
 npm start
 # or
 yarn start
-
-Copy
-
-Insert
+```
 
 Vite:
+```
 npm run dev
 # or
 yarn dev
+```
 
-Copy
-
-Insert
-
-🏗️ Build
+### 🏗️ Build
+```
 npm run build
 # or
 yarn build
+```
 
-Copy
+## 🖱️ Usage
 
-Insert
+- Enter an amount in the “From” field and pick currencies.
+- Click “Convert” to compute, or type in the “To” field to update “From.”
+- Click “Swap” to switch currencies and values.
+- Click “Refresh” to force re-fetch of live rates.
 
-🖱️ Usage
-Enter an amount in the “From” field and pick currencies.
-Click “Convert” to compute, or type in the “To” field to update “From.”
-Click “Swap” to switch currencies and values.
-Click “Refresh” to force re-fetch of live rates.
-🔧 Implementation notes
-Hook: src/hooks/useCurrencyInfo.js
-Returns { rates, loading, error, refresh }.
-rates keys are lowercase currency codes.
-refresh() triggers a re-fetch.
-On network failure, falls back to built-in DEFAULT_RATES.
-UI components: src/components/… (input/select controls and layout).
-🩺 Troubleshooting
+## 🔧 Implementation notes
+
+- Hook: src/hooks/useCurrencyInfo.js
+- Returns { rates, loading, error, refresh }.
+- rates keys are lowercase currency codes.
+- refresh() triggers a re-fetch.
+- On network failure, falls back to built-in DEFAULT_RATES.
+- UI components: src/components/… (input/select controls and layout).
+  
+## 🩺 Troubleshooting
+
 If network times out, the banner appears and offline defaults are used. Ensure your environment allows outbound requests to:
-https://api.exchangerate.host
-https://api.frankfurter.app
-To modify default offline rates, edit DEFAULT_RATES in src/hooks/useCurrencyInfo.js.
-If selects are empty, verify network; the app also initializes with defaults so selects should populate.
-🌐 APIs used
-exchangerate.host — primary source
-frankfurter.app — fallback source
-📸 Screenshots
-⚙️ Configuration
-No environment variables required by default. You can:
+- https://api.exchangerate.host
+- https://api.frankfurter.app
+- To modify default offline rates, edit DEFAULT_RATES in src/hooks/useCurrencyInfo.js.
+- If selects are empty, verify network; the app also initializes with defaults so selects should populate.
 
-Update quick pairs in the App component.
-Tweak the UI in App.css (glassmorphism, gradients, focus, motion-reduction supported).
-☁️ Deployment
-Netlify: drag-and-drop the build folder or connect your repo; set build command npm run build and publish directory build or dist (Vite).
-Vercel: import repo; framework detection picks CRA/Vite automatically.
-GitHub Pages (CRA): npm run build then deploy build with gh-pages.
-⌨️ Shortcuts and a11y
-Tab/Shift+Tab to navigate inputs and buttons.
-Clear focus rings and larger hit targets for controls.
-Reduced motion respected via prefers-reduced-motion.
-🧭 Project structure (excerpt)
+## 🌐 APIs used
+
+- exchangerate.host — primary source
+- frankfurter.app — fallback source
+  
+## ⚙️ Configuration
+
+No environment variables required by default. You can:
+- Update quick pairs in the App component.
+- Tweak the UI in App.css (glassmorphism, gradients, focus, motion-reduction supported).
+  
+## ☁️ Deployment
+
+- Netlify: drag-and-drop the build folder or connect your repo; set build command npm run build and publish directory build or dist (Vite).
+- Vercel: import repo; framework detection picks CRA/Vite automatically.
+- GitHub Pages (CRA): npm run build then deploy build with gh-pages.
+  
+## ⌨️ Shortcuts and a11y
+
+- Tab/Shift+Tab to navigate inputs and buttons.
+- Clear focus rings and larger hit targets for controls.
+- Reduced motion respected via prefers-reduced-motion.
+  
+## 🧭 Project structure (excerpt)
+```file
 src/
   components/
     # UI components (InputBox, etc.)
-  hooks/
+    hooks/
     useCurrencyInfo.js   # rates, loading, error, refresh
-  App.css
-  App.jsx
+ App.css
+ App.jsx
+```
 
-Copy
+## 🤝 Contributing
 
-Insert
-
-🤝 Contributing
-Fork + branch from main
-Commit with conventional messages if possible (feat:, fix:, docs:)
-Open a PR — PRs welcome!
+- Fork + branch from main
+- Commit with conventional messages if possible (feat:, fix:, docs:)
+- Open a PR — PRs welcome!
+  
 Quick ideas:
 
-Add more quick pairs or favorites
-Persist last-used currencies in localStorage
-Add unit tests for the hook
-Add i18n and number formatting locales
-📝 License & Credits
+- Add more quick pairs or favorites
+- Persist last-used currencies in localStorage
+- Add unit tests for the hook
+- Add i18n and number formatting locales
+  
+## 📝 License & Credits
+
 MIT-style — adapt as needed.
 
 APIs:
 
-https://api.exchangerate.host
-https://api.frankfurter.app
+- https://api.exchangerate.host
+- https://api.frankfurter.app
+  
 Icons/Badges:
 
-Shields.io badges
-fav.farm emoji icons
+- Shields.io badges
+- fav.farm emoji icons
+  
 Made with React and care.
