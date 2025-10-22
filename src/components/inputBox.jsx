@@ -29,6 +29,30 @@ function InputBox({
       ? React.useId()
       : `input-${Math.random().toString(36).slice(2, 9)}`;
 
+  // Handle amount changes safely: avoid NaN on empty input and allow partial decimals.
+  const handleAmountChange = (e) => {
+    const val = e.target.value;
+
+    // Allow empty input to clear the field
+    if (val === "" || val === null) {
+      onAmountChange?.("");
+      return;
+    }
+
+    // Coerce to number if finite; otherwise ignore the change
+    const num = Number(val);
+    if (Number.isFinite(num)) {
+      onAmountChange?.(num);
+    } else {
+      // If parent expects string handling instead, you can pass val through:
+      // onAmountChange?.(val);
+      // For now, ignore invalid to prevent NaN propagation.
+    }
+  };
+
+  // Normalize selectedCurrency to lowercase to match option values
+  const selectedLower = String(selectedCurrency ?? "usd").toLowerCase();
+
   return (
     <div
       className={`bg-white p-3 rounded-lg text-sm flex gap-3 items-center ${className}`}
@@ -44,8 +68,9 @@ function InputBox({
           className="outline-none w-full bg-transparent py-2 text-lg font-medium"
           placeholder="Amount"
           disabled={amountDisabled}
-          value={amount ?? ""}
-          onChange={(e) => onAmountChange?.(Number(e.target.value))}
+          // Allow empty string; otherwise show amount
+          value={amount === "" || amount === null || amount === undefined ? "" : amount}
+          onChange={handleAmountChange}
         />
       </div>
 
@@ -60,8 +85,8 @@ function InputBox({
           id={`${id}-select`}
           className="outline-none w-full bg-transparent py-2 text-sm"
           disabled={currencyDisabled}
-          value={selectedCurrency}
-          onChange={(e) => onCurrencyChange?.(e.target.value)}
+          value={selectedLower}
+          onChange={(e) => onCurrencyChange?.(String(e.target.value).toLowerCase())}
         >
           {currencyOptions.map((currency) => {
             const lower = String(currency).toLowerCase();

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import "./App.css";
 import InputBox from "./components";
 import useCurrencyInfo from "./hooks/useCurrencyInfo";
@@ -10,27 +10,64 @@ function App() {
   const [convertedAmount, setConvertedAmount] = useState(0);
   const [activeInput, setActiveInput] = useState("from"); // 'from' or 'to'
 
+  // Fetch rates for the current 'from' base
   const { rates: currencyInfo, loading, error, refresh } = useCurrencyInfo(from);
-  const options = Object.keys(currencyInfo || {}).sort();
 
-  // keep selected currencies in sync with available options
+  // Build lowercase, sorted options from rates
+  const computedOptions = useMemo(() => {
+    const keys = Object.keys(currencyInfo || {});
+    if (!keys.length) return [];
+    return keys.map((c) => String(c).toLowerCase()).sort();
+  }, [currencyInfo]);
+
+  // Keep a stable non-empty options list so the selects don't go blank while loading
+  const optionsRef = useRef([]);
+  if (computedOptions.length) {
+    optionsRef.current = computedOptions;
+  }
+  const options = optionsRef.current;
+
+  // Ensure from/to are valid members of options and prefer distinct currencies if possible
   useEffect(() => {
-    if (!options || options.length === 0) return;
-    // ensure 'from' exists
-    if (!options.includes(String(from))) {
-      setFrom(options[0]);
-    }
-    // ensure 'to' exists and is different if possible
-    if (!options.includes(String(to))) {
-      const fallback = options.find((c) => c !== from) || options[0];
-      setTo(fallback);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options.join(",")]);
+    if (!options.length) return;
 
+    const fromLc = String(from).toLowerCase();
+    const toLc = String(to).toLowerCase();
+
+    let nextFrom = options.includes(fromLc) ? fromLc : options[0];
+    let nextTo = options.includes(toLc) ? toLc : (options.find((c) => c !== nextFrom) || nextFrom);
+
+    // Commit only if changed
+    if (nextFrom !== fromLc) setFrom(nextFrom);
+    if (nextTo !== toLc) setTo(nextTo);
+  }, [options, from, to]);
+
+  // Helper to get current rate safely
+  const getRate = () => {
+    const rate = currencyInfo && to ? currencyInfo[to] : 0;
+    return Number.isFinite(rate) ? rate : 0;
+  };
+
+  // Recompute derived value whenever pair, rates, or the active side changes.
+  useEffect(() => {
+    const rate = getRate();
+
+    if (activeInput === "from") {
+      const numericAmount = Number(amount) || 0;
+      const result = numericAmount * rate;
+      setConvertedAmount(Number.isFinite(result) ? Number(result.toFixed(4)) : 0);
+    } else {
+      const numericTo = Number(convertedAmount) || 0;
+      const base = rate > 0 ? numericTo / rate : 0;
+      setAmount(Number.isFinite(base) ? Number(base.toFixed(4)) : 0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [from, to, currencyInfo, activeInput]);
+
+  // Swap currencies and carry the correct value based on active input
   const swap = (e) => {
     if (e && typeof e.preventDefault === "function") e.preventDefault();
-    // read current values and swap them reliably
+
     const prevFrom = from;
     const prevTo = to;
     const prevAmount = amount;
@@ -38,40 +75,69 @@ function App() {
 
     setFrom(prevTo);
     setTo(prevFrom);
-    setAmount(prevConverted ?? 0);
-    // clear converted value until user converts again
-    setConvertedAmount(0);
+
+    if (activeInput === "from") {
+      setAmount(prevAmount);
+    } else {
+      // carry the visible 'to' value as new base
+      setAmount(prevConverted ?? 0);
+      // keep editing from after swap
+      setActiveInput("from");
+    }
   };
 
+  // Explicit convert (also used on submit)
   const convert = () => {
-    const rate = (currencyInfo && currencyInfo[to]) ?? 0;
-    const numericAmount = Number(amount) || 0;
-    const result = numericAmount * rate;
-    // avoid setting NaN
-    setConvertedAmount(Number.isFinite(result) ? Number(result.toFixed(4)) : 0);
+    const rate = getRate();
+
+    if (activeInput === "from") {
+      const numericAmount = Number(amount) || 0;
+      const result = numericAmount * rate;
+      setConvertedAmount(Number.isFinite(result) ? Number(result.toFixed(4)) : 0);
+    } else {
+      const numericTo = Number(convertedAmount) || 0;
+      const base = rate > 0 ? numericTo / rate : 0;
+      setAmount(Number.isFinite(base) ? Number(base.toFixed(4)) : 0);
+    }
   };
 
-  // handle typing in 'from' input: update amount and derived to-value
+  // User types in "from"
   const handleFromChange = (val) => {
     setActiveInput("from");
-    const numeric = Number(val) || 0;
-    setAmount(numeric);
-    const rate = (currencyInfo && currencyInfo[to]) ?? 0;
-    const toVal = Number.isFinite(numeric * rate) ? Number((numeric * rate).toFixed(4)) : 0;
+    const numeric = Number(val);
+    const safe = Number.isFinite(numeric) ? numeric : 0;
+    setAmount(safe);
+
+    const rate = getRate();
+    const toVal = Number.isFinite(safe * rate) ? Number((safe * rate).toFixed(4)) : 0;
     setConvertedAmount(toVal);
   };
 
-  // handle typing in 'to' input: update convertedAmount and derive from-value
+  // User types in "to"
   const handleToChange = (val) => {
     setActiveInput("to");
-    const numeric = Number(val) || 0;
-    setConvertedAmount(numeric);
-    const rate = (currencyInfo && currencyInfo[to]) ?? 0;
-    const fromVal = rate > 0 ? Number((numeric / rate).toFixed(4)) : 0;
+    const numeric = Number(val);
+    const safe = Number.isFinite(numeric) ? numeric : 0;
+    setConvertedAmount(safe);
+
+    const rate = getRate();
+    const fromVal = rate > 0 ? Number((safe / rate).toFixed(4)) : 0;
     setAmount(Number.isFinite(fromVal) ? fromVal : 0);
   };
 
-  const currentRate = ((currencyInfo && currencyInfo[to]) || 0);
+  // When currency select changes, set active side so recalculation uses the correct source
+  const handleFromCurrencyChange = (currency) => {
+    const lc = String(currency).toLowerCase();
+    setFrom(lc);
+    setActiveInput("from");
+  };
+  const handleToCurrencyChange = (currency) => {
+    const lc = String(currency).toLowerCase();
+    setTo(lc);
+    setActiveInput("from"); // when changing target currency, recompute 'to' from 'from'
+  };
+
+  const currentRate = getRate();
 
   return (
     <>
@@ -91,7 +157,6 @@ function App() {
               Convert between currencies quickly. Rates update live.
             </p>
 
-            {/* show friendly warning when live fetch failed and app is using defaults */}
             {error && (
               <div className="mb-3 px-4 py-2 rounded-md bg-yellow-100 text-yellow-800 text-sm">
                 {error} — conversions still work with built-in rates. Try "Refresh Rates".
@@ -108,8 +173,8 @@ function App() {
                 <InputBox
                   label="From"
                   amount={amount}
-                  onAmountChange={(val) => handleFromChange(val)}
-                  onCurrencyChange={(currency) => setFrom(currency)}
+                  onAmountChange={handleFromChange}
+                  onCurrencyChange={handleFromCurrencyChange}
                   currencyOptions={options}
                   selectedCurrency={from}
                 />
@@ -142,11 +207,11 @@ function App() {
                 <InputBox
                   label="To"
                   amount={convertedAmount}
-                  onAmountChange={(val) => handleToChange(val)}
-                  onCurrencyChange={(currency) => setTo(currency)}
+                  onAmountChange={handleToChange}
+                  onCurrencyChange={handleToCurrencyChange}
                   currencyOptions={options}
                   selectedCurrency={to}
-                  amountDisabled={false} /* allow typing in 'To' as requested */
+                  amountDisabled={false}
                 />
               </div>
 
@@ -154,9 +219,11 @@ function App() {
                 <button
                   type="submit"
                   className="col-span-2 w-full py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-green-500 to-emerald-600 disabled:opacity-60"
-                  disabled={loading}
+                  disabled={loading || !options.length}
                 >
-                  {loading ? "Loading rates..." : `Convert ${from.toUpperCase()} → ${to.toUpperCase()}`}
+                  {loading
+                    ? "Loading rates..."
+                    : `Convert ${from.toUpperCase()} → ${to.toUpperCase()}`}
                 </button>
               </div>
 
@@ -164,10 +231,15 @@ function App() {
                 {loading && <span>Fetching latest rates…</span>}
                 {!loading && currentRate > 0 && (
                   <span>
-                    1 {from.toUpperCase()} = {Number(currentRate).toFixed(6)} {to.toUpperCase()}
+                    1 {from.toUpperCase()} = {Number(currentRate).toFixed(6)}{" "}
+                    {to.toUpperCase()}
                   </span>
                 )}
-                {error && <div className="text-red-500 mt-2">Live fetch failed; using offline rates.</div>}
+                {error && (
+                  <div className="text-red-500 mt-2">
+                    Live fetch failed; using offline rates.
+                  </div>
+                )}
               </div>
             </form>
           </div>
@@ -178,4 +250,3 @@ function App() {
 }
 
 export default App;
-
