@@ -38,9 +38,11 @@ This app converts between currencies using a public API (exchangerate.host) with
 - 🧯 Graceful offline/failed fetch handling with banner
 - 🎨 Modern, accessible UI
 
+
 ## 📸 Screenshots
 
 ![image](https://github.com/MdSaifAli063/Currency-Converter-React/blob/e08be399185d398ad0cf5b8026b3e52e0e73c55d/Screenshot%202025-10-18%20004608_edited.png)
+
 
 ## ✨ Features
 
