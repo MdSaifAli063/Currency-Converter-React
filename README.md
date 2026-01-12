@@ -62,6 +62,7 @@ This app converts between currencies using a public API (exchangerate.host) with
 - Fetch with timeouts and graceful error handling
 - No backend required
 
+
 ## 📦 Prerequisites
 
 - Node.js 14+ recommended
