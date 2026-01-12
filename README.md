@@ -54,6 +54,7 @@ This app converts between currencies using a public API (exchangerate.host) with
 - Keyboard/focus friendly
 - Works with Create React App or Vite
 
+
 ## 🧩 Tech stack
 
 - React + Hooks
