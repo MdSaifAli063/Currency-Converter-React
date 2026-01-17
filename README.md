@@ -106,6 +106,7 @@ yarn build
 - Click “Swap” to switch currencies and values.
 - Click “Refresh” to force re-fetch of live rates.
 
+
 ## 🔧 Implementation notes
 
 - Hook: src/hooks/useCurrencyInfo.js
