@@ -151,7 +151,8 @@ No environment variables required by default. You can:
 - Tab/Shift+Tab to navigate inputs and buttons.
 - Clear focus rings and larger hit targets for controls.
 - Reduced motion respected via prefers-reduced-motion.
-  
+ 
+
 ## 🧭 Project structure (excerpt)
 ```file
 src/
