@@ -138,6 +138,7 @@ No environment variables required by default. You can:
 - Update quick pairs in the App component.
 - Tweak the UI in App.css (glassmorphism, gradients, focus, motion-reduction supported).
   
+
 ## ☁️ Deployment
 
 - Netlify: drag-and-drop the build folder or connect your repo; set build command npm run build and publish directory build or dist (Vite).
