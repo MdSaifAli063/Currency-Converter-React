@@ -131,6 +131,7 @@ If network times out, the banner appears and offline defaults are used. Ensure y
 - exchangerate.host — primary source
 - frankfurter.app — fallback source
   
+
 ## ⚙️ Configuration
 
 No environment variables required by default. You can:
