@@ -178,6 +178,7 @@ Quick ideas:
 - Add unit tests for the hook
 - Add i18n and number formatting locales
   
+
 ## 📝 License & Credits
 
 MIT-style — adapt as needed.
