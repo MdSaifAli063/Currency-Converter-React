@@ -144,7 +144,8 @@ No environment variables required by default. You can:
 - Netlify: drag-and-drop the build folder or connect your repo; set build command npm run build and publish directory build or dist (Vite).
 - Vercel: import repo; framework detection picks CRA/Vite automatically.
 - GitHub Pages (CRA): npm run build then deploy build with gh-pages.
-  
+
+
 ## ⌨️ Shortcuts and a11y
 
 - Tab/Shift+Tab to navigate inputs and buttons.
